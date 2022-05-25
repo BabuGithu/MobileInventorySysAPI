@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="mobileinventoryselectSub_Flow" doc:id="fcc0d6ba-e5b7-4559-9307-b193f6364dc1" >
+		<logger level="INFO" doc:name="Logger" doc:id="0fae595e-90c8-4e85-ad5b-846a232947af" message="#['Mobile Inventory process started- EXP API']"/>
+		<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+		<http:request method="POST" doc:name="Request" doc:id="6a801953-eb54-4b55-ab18-10e2178b28f5" config-ref="HTTP_Request_configuration1" path="${prcselectbasepath}">
+			<reconnect count="5" />
+		</http:request>
+		<ee:transform doc:name="Transform Message" doc:id="1f1c9a53-76f7-4ed4-891e-e3bff29d01ea" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="e20bb8f3-b0a0-474e-a177-19a53513211e" message="#['Mobile Inventory process completed- Exp API']"/>
+	</sub-flow>
+</mule>
