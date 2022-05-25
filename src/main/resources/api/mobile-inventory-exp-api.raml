@@ -1,0 +1,61 @@
+#%RAML 1.0
+title: mobile-inventory-exp-api
+version: v1
+protocols:
+  - HTTP
+mediaType: application/json
+
+types:
+  200Response: !include libraries/dataTypes/200ResponsedataType.raml
+  400Response: !include libraries/dataTypes/400ResponsedataType.raml
+  401Response: !include libraries/dataTypes/401ResponsedataType.raml
+  500Response: !include libraries/dataTypes/500ResponsedataType.raml
+
+/mobileinvupdate:
+  post:
+     description: Create a new Mobile Entry
+     body:
+       application/json:
+         type: !include libraries/dataTypes/Input.raml
+         example: !include libraries/examples/Input.json
+     responses:
+       200:
+         body:
+           application/json:
+             example: !include libraries/examples/mobileupdateresponse.json
+       400:
+         body:
+           application/json:
+             example: !include libraries/examples/400Response.json
+       401:
+         body:
+           application/json:
+             example: !include libraries/examples/401Response.json
+       500:
+         body:
+           application/json:
+             example: !include libraries/examples/500Response.json
+/mobileselect:
+  post:
+     description: Create a new Employee
+     body:
+       application/json:
+         type: !include libraries/dataTypes/mobileselectinput.raml
+         example: !include libraries/examples/mobileselectinput.json
+     responses:
+       200:
+         body:
+           application/json:
+             example: !include libraries/examples/mobileselectresponse.json
+       400:
+         body:
+           application/json:
+             example: !include libraries/examples/400Response.json
+       401:
+         body:
+           application/json:
+             example: !include libraries/examples/401Response.json
+       500:
+         body:
+           application/json:
+             example: !include libraries/examples/500Response.json
